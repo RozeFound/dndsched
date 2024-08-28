@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.dndsched" path="/org/gnome/shell/extensions/dndsched/">
+    <key name="enable-dnd-time-offset" type="i">
+      <default>1380</default>
+    </key>
+    <key name="disable-dnd-time-offset" type="i">
+      <default>540</default>
+    </key>
+  </schema>
+</schemalist>

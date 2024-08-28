@@ -1,0 +1,9 @@
+{
+  "name": "DnD On Time",
+  "description": "Set schedule for Do Not Disturb mode",
+  "uuid": "dndsched@rozefound",
+  "shell-version": [
+    "46"
+  ],
+  "settings-schema": "org.gnome.shell.extensions.dndsched"
+}
