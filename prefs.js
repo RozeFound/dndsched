@@ -41,7 +41,6 @@ export default class DnDPreferences extends ExtensionPreferences {
         group.add(this._add_timerow(_('Enable DnD after'), 'enable-dnd-time-offset'));
         group.add(this._add_timerow(_('Disable DnD after'), 'disable-dnd-time-offset'));
 
-        // Create a settings object and bind the row to the `show-indicator` key
         window._settings = this.getSettings();
     }
 
