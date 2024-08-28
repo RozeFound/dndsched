@@ -5,5 +5,6 @@
   "shell-version": [
     "46"
   ],
+  "url": "https://github.com/RozeFound/dndsched",
   "settings-schema": "org.gnome.shell.extensions.dndsched"
 }
