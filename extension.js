@@ -35,11 +35,11 @@ export default class DnDExtension extends Extension {
         
         this._reschedule();
 
-        this._settings.connect('changed::enable-dnd-time-offset', () => {
+        this.__settings_enable_tid = this._settings.connect('changed::enable-dnd-time-offset', () => {
             this._reschedule();
         });
 
-        this._settings.connect('changed::disable-dnd-time-offset', () => {
+        this.__settings_disable_tid = this._settings.connect('changed::disable-dnd-time-offset', () => {
             this._reschedule();
         });
 
@@ -81,14 +81,31 @@ export default class DnDExtension extends Extension {
     }
 
     _cleanup() {
-        if (this._enable_tid)
+        if (this._enable_tid) {
             GLib.Source.remove(this._enable_tid);
-        if (this._disable_tid)
+            this._enable_tid = null;
+        }
+
+        if (this._disable_tid) {
             GLib.Source.remove(this._disable_tid);
+            this._disable_tid = null;
+        }
     }
 
     disable() {
+
+        if (this.__settings_enable_tid) {
+            this._settings.disconnect(this.__settings_enable_tid);
+            this.__settings_enable_tid = null;
+        }
+
+        if (this.__settings_disable_tid) {
+            this._settings.disconnect(this.__settings_disable_tid);
+            this.__settings_disable_tid = null;
+        }
+
         this._cleanup();
+        
         this._set_dnd(!this.__dnd);
     }
 }
