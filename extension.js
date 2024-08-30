@@ -29,10 +29,10 @@ export default class DnDExtension extends Extension {
             schema_id: "org.gnome.desktop.notifications",
         })
 
-        this.__dnd = this._notification_settings.get_boolean('show-banners');
+        this.__dnd = !this._notification_settings.get_boolean('show-banners');
 
-        this._settings = this.getSettings('org.gnome.shell.extensions.dndsched');    
-        
+        this._settings = this.getSettings('org.gnome.shell.extensions.dndsched');
+
         this._reschedule();
 
         this.__settings_enable_tid = this._settings.connect('changed::enable-dnd-time-offset', () => {
@@ -47,16 +47,15 @@ export default class DnDExtension extends Extension {
 
     _reschedule() {
 
-        let time = this._get_time();
+        let time = Math.floor(this._get_time() / 60)
         let enable_time = this._settings.get_int('enable-dnd-time-offset');
         let disable_time = this._settings.get_int('disable-dnd-time-offset');
 
-        let dnd = (enable_time < time && time < disable_time || 
+        let dnd = ((enable_time < time && time < disable_time) || 
                   (enable_time > disable_time &&
                   (time <= disable_time || time >= enable_time)))
         
-        if (dnd) this._set_dnd(true);         
-        else this._set_dnd(false);
+        this._set_dnd(dnd);
 
         this._cleanup();
         
@@ -67,7 +66,7 @@ export default class DnDExtension extends Extension {
 
     _sched_dnd(_time, _value) {
         return GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT,
-            Math.abs((_time * 60) - (this._get_time() * 60)),
+            Math.abs((_time * 60) - this._get_time()),
             ()=> { this._set_dnd(_value); } );
     }
 
@@ -77,7 +76,7 @@ export default class DnDExtension extends Extension {
 
     _get_time() {
         let _time = new Date();
-        return (_time.getHours() * 60) + _time.getMinutes();
+        return (_time.getHours() * 3600) + (_time.getMinutes() * 60) + _time.getSeconds();
     }
 
     _cleanup() {
@@ -106,6 +105,6 @@ export default class DnDExtension extends Extension {
 
         this._cleanup();
         
-        this._set_dnd(!this.__dnd);
+        this._set_dnd(this.__dnd);
     }
 }
