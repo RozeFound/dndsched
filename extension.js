@@ -106,5 +106,10 @@ export default class DnDExtension extends Extension {
         this._cleanup();
         
         this._set_dnd(this.__dnd);
+
+        this.__dnd = null;
+        this._settings = null;
+        this._notification_settings = null;
+        
     }
 }
