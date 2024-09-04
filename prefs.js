@@ -61,6 +61,7 @@ export default class DnDPreferences extends ExtensionPreferences {
                 page_increment: 1,
                 page_increment: 1,
             }),
+            numeric: true,
             climb_rate: 1,
             digits: 0,
             halign: Gtk.Align.END,
@@ -69,7 +70,7 @@ export default class DnDPreferences extends ExtensionPreferences {
 
         hours_spin.set_value(hours);
 
-        hours_spin.connect('changed', () => {
+        hours_spin.connect('value-changed', () => {
             hours = hours_spin.get_value_as_int();
             settings.set_int(settings_id, hours * 60 + minutes);
         });
@@ -82,6 +83,7 @@ export default class DnDPreferences extends ExtensionPreferences {
                 page_increment: 1,
                 page_increment: 1,
             }),
+            numeric: true,
             climb_rate: 1,
             digits: 0,
             halign: Gtk.Align.END,
@@ -90,7 +92,7 @@ export default class DnDPreferences extends ExtensionPreferences {
 
         minutes_spin.set_value(minutes);
 
-        minutes_spin.connect('changed', () => {
+        minutes_spin.connect('value-changed', () => {
             minutes = minutes_spin.get_value_as_int();
             settings.set_int(settings_id, hours * 60 + minutes);
         });
