@@ -3,7 +3,7 @@
   "description": "Set schedule for Do Not Disturb mode",
   "uuid": "dndsched@rozefound",
   "shell-version": [
-    "46", "47", "48", "49"
+    "46", "47", "48", "49", "50"
   ],
   "url": "https://github.com/RozeFound/dndsched",
   "settings-schema": "org.gnome.shell.extensions.dndsched"
